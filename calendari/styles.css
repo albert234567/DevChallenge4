@@ -8,7 +8,7 @@
 body {
   height: 100vh;
   background: rgb(238,174,202);
-background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,9 +16,122 @@ background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 
   user-select: none;
 }
 
-.card {
+.container {
   width: 316px;
   height: fit-content;
+  background-color: #FFFFFF;
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px #efefef;
+  padding: 20px;
+  text-align: center;
+}
+
+.btn,
+.time-slot-btn,
+#curs-next-btn {
+  display: inline-block;
+  width: fit-content;
+  padding: 10px 20px;
+  margin: 10px 5px;
+  background-color: #f8f7fa;
+  border: none;
+  border-radius: 15px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #19181a;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+}
+
+.btn:hover,
+.time-slot-btn:hover,
+#curs-next-btn:hover {
+  background-color: rgb(112, 71, 235);
+  color: #fff;
+  box-shadow: 0px 4px 8px rgba(112, 71, 235, 0.4);
+}
+
+.btn:focus,
+.time-slot-btn:focus,
+#curs-next-btn:focus {
+  outline: none;
+  background-color: rgb(112, 71, 235);
+  color: #fff;
+  box-shadow: 0px 4px 8px rgba(112, 71, 235, 0.4);
+}
+
+#curs-next-btn:disabled {
+  background-color: #efefef;
+  color: #a5a5a5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+#step-1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.time-slot-btn {
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 10px 0;
+  background-color: #f8f7fa;
+  border: none;
+  border-radius: 15px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #19181a;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+}
+
+.time-slot-btn:hover {
+  background-color: rgb(112, 71, 235);
+  color: #fff;
+  box-shadow: 0px 4px 8px rgba(112, 71, 235, 0.4);
+}
+
+.time-slot-btn:focus {
+  outline: none;
+  background-color: rgb(112, 71, 235);
+  color: #fff;
+  box-shadow: 0px 4px 8px rgba(112, 71, 235, 0.4);
+}
+
+#curs-select {
+  width: 100%;
+  padding: 10px;
+  margin: 15px 0;
+  background-color: #f8f7fa;
+  border: 1px solid #efefef;
+  border-radius: 15px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #19181a;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  appearance: none;
+  transition: 0.3s;
+}
+
+#curs-select:hover,
+#curs-select:focus {
+  background-color: rgb(112, 71, 235);
+  color: #fff;
+  box-shadow: 0px 4px 8px rgba(112, 71, 235, 0.4);
+}
+
+.card {
+  width: 100%;
   background-color: #FFFFFF;
   border-radius: 15px;
   box-shadow: 0px 0px 10px #efefef;
@@ -40,11 +153,11 @@ background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 
 }
 
 .calendar-toolbar > [class$="month-btn"] {
-  width: 40px;
+  width: 50px;
   aspect-ratio: 1;
   text-align: center;
-  line-height: 40px;
-  font-size: 14px;
+  line-height: 50px;
+  font-size: 18px;
   color: #19181a;
   background: #f8f7fa;
   border: none;
@@ -57,9 +170,11 @@ background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 
   flex-wrap: wrap;
   padding-inline: 18px;
 }
+
 .weekdays {
   padding-top: 12px;
 }
+
 .calendar-days {
   padding-bottom: 12px;
 }
@@ -87,48 +202,4 @@ background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 
   font-weight: 700;
   transition: 0.5s;
   cursor: pointer;
-}
-
-.padding-day {
-  color: #a5a5a5;
-  user-select: none;
-}
-
-.calendar-toolbar > [class$="month-btn"]:hover,
-.month-day:hover,
-.btn:hover {
-  border-radius: 15px;
-  background-color: #f8f7fa;
-  color: rgb(112, 71, 235);
-  transition: 0.1s;
-  cursor: pointer;
-  box-shadow: inset 0px 0px 0px 1.5px rgb(112, 71, 235);
-}
-
-.calendar-toolbar > [class$="month-btn"]:focus,
-.month-day:focus,
-.btn:focus {
-  border-radius: 15px;
-  background-color: rgb(112, 71, 235);
-  color: #f8f7fa;
-}
-
-.goto-buttons {
-  border-top: 1px solid #efefef;
-  padding-block: 18px;
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.btn {
-  background: #f8f7fa;
-  border: none;
-  border-radius: 15px;
-  padding: 11px 13px;
-  color: #19181a;
-  font-family: "Quicksand", sans-serif;
-  font-weight: 600;
-  font-size: 0.9rem;
-  margin-right: 1px;
-  box-shadow: 0px 0px 0px #efefef;
 }
