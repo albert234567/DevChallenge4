@@ -1,18 +1,27 @@
 <?php
-require_once '../db/db_connect.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+header('Content-Type: application/json');
+
+include __DIR__ . '/../db/db_connection.php';
 
 $course_id = $_GET['course_id'] ?? null;
-
 if (!$course_id) {
-    http_response_code(400);
     echo json_encode(['error' => 'Falta el course_id']);
     exit;
 }
 
-$stmt = $pdo->prepare("SELECT * FROM availabilities WHERE course_id = ?");
-$stmt->execute([$course_id]);
-$disponibilitats = $stmt->fetchAll(PDO::FETCH_ASSOC);
+try {
+    $stmt = $pdo->prepare("SELECT data FROM availabilities WHERE course_id = ?");
+    $stmt->execute([$course_id]);
+    $disponibilitats = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-header('Content-Type: application/json');
-echo json_encode($disponibilitats);
-?>
+    $data = array_map(fn($row) => $row['data'], $disponibilitats);
+
+    echo json_encode($data);
+
+} catch (PDOException $e) {
+    echo json_encode(['error' => 'Error a la base de dades: ' . $e->getMessage()]);
+}

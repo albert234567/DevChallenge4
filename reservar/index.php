@@ -1,5 +1,3 @@
-<?php include('templates/header.php'); ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,37 +25,65 @@
             <button id="curs-next-btn" disabled>Continuar</button>
         </div>
 
-        <!-- Pas 3: Calendari -->
-        <div id="step-3" class="step" style="display: none;">
-            <h2>Selecciona un dia disponible</h2>
-            <div class="card">
-                <div class="calendar-toolbar">
-                    <button class="prev month-btn"><i class="fas fa-chevron-left"></i></button>
-                    <div class="current-month"></div>
-                    <button class="next month-btn"><i class="fas fa-chevron-right"></i></button>
-                </div>
-                <div class="calendar">
-                    <div class="weekdays">
-                        <div class="weekday-name">Su</div>
-                        <div class="weekday-name">Mo</div>
-                        <div class="weekday-name">Tu</div>
-                        <div class="weekday-name">We</div>
-                        <div class="weekday-name">Th</div>
-                        <div class="weekday-name">Fr</div>
-                        <div class="weekday-name">Sa</div>
-                    </div>
-                    <div class="calendar-days"></div>
-                </div>
-                <div class="goto-buttons">
-                    <button type="button" class="btn today">Today</button>
-                    <button type="button" id="confirm-reservation" class="btn">Confirmar Reserva</button>
-                </div>
+<!-- Pas 3: Calendari -->
+<div id="step-3" class="step" style="display: none;">
+    <h2>Selecciona un dia disponible</h2>
+    <div class="card">
+        <div class="calendar-toolbar">
+            <button class="prev month-btn"><i class="fas fa-chevron-left"></i></button>
+            <div class="current-month"></div>
+            <button class="next month-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="calendar">
+            <div class="weekdays">
+                <div class="weekday-name">Su</div>
+                <div class="weekday-name">Mo</div>
+                <div class="weekday-name">Tu</div>
+                <div class="weekday-name">We</div>
+                <div class="weekday-name">Th</div>
+                <div class="weekday-name">Fr</div>
+                <div class="weekday-name">Sa</div>
             </div>
+            <div class="calendar-days"></div>
+        </div>
+        
+        <!-- Aquí afegeix això -->
+        <div class="hours-container"></div>
+
+        <div class="goto-buttons">
+            <button type="button" class="btn today">Today</button>
+            <button type="button" id="confirm-reservation" class="btn" disabled style="display: none;"></button>
         </div>
     </div>
+</div>
 
-    <script src="assets/js/script.js"></script>
+<!-- Pas 4: Confirmació i formulari -->
+<div id="step-4" class="step" style="display: none;">
+  <h2>Confirma la teva reserva</h2>
+  <div class="summary">
+    <p><strong>Curs:</strong> <span id="summary-course"></span></p>
+    <p><strong>Data:</strong> <span id="summary-date"></span></p><br>
+  </div>
+
+  <form id="reservation-form">
+    <label for="hour-select">Hora disponible:</label>
+    <select id="hour-select" name="hour_select" required>
+      <option value="" disabled selected>Escull una hora</option>
+    </select>
+
+    <label for="name">Nom:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Mail:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="phone">Telèfon:</label>
+    <input type="tel" id="phone" name="phone" required>
+
+    <button type="submit" class="btn">Confirmar reserva</button>
+  </form>
+</div>
+
+    <script src="assets/js/script.js" defer></script>
 </body>
 </html>
-
-<?php include('templates/footer.php'); ?>

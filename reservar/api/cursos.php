@@ -1,13 +1,10 @@
-// cursos.php
-
 <?php
 // Incloure la connexió a la base de dades
-include 'db_connection.php';
-
+include __DIR__ . '/../db/db_connection.php';
 $slot = isset($_GET['slot']) ? $_GET['slot'] : '';  // Obtenim la franja horària (matí/tarda)
 
 // Comprovem que la franja horària sigui vàlida
-if ($slot != 'matí' && $slot != 'tarda') {
+if ($slot != 'mati' && $slot != 'tarda') {
     echo json_encode(['error' => 'Franja horària invàlida']);
     exit;
 }

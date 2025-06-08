@@ -3,11 +3,11 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   height: 100vh;
-  background: rgb(238,174,202);
   background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
   display: flex;
   justify-content: center;
@@ -17,15 +17,16 @@ body {
 }
 
 .container {
-  width: 316px;
-  height: fit-content;
+  width: 400px;
   background-color: #FFFFFF;
   border-radius: 15px;
-  box-shadow: 0px 0px 10px #efefef;
+  box-shadow: 0 0 10px #efefef;
   padding: 20px;
   text-align: center;
+  height: fit-content;
 }
 
+/* Botons generals */
 .btn,
 .time-slot-btn,
 #curs-next-btn {
@@ -36,31 +37,26 @@ body {
   background-color: #f8f7fa;
   border: none;
   border-radius: 15px;
-  font-family: "Quicksand", sans-serif;
   font-weight: 600;
   font-size: 1rem;
   color: #19181a;
   cursor: pointer;
   text-align: center;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   transition: 0.3s;
+  font-family: "Quicksand", sans-serif;
 }
 
 .btn:hover,
 .time-slot-btn:hover,
-#curs-next-btn:hover {
-  background-color: rgb(112, 71, 235);
-  color: #fff;
-  box-shadow: 0px 4px 8px rgba(112, 71, 235, 0.4);
-}
-
+#curs-next-btn:hover,
 .btn:focus,
 .time-slot-btn:focus,
 #curs-next-btn:focus {
-  outline: none;
   background-color: rgb(112, 71, 235);
   color: #fff;
-  box-shadow: 0px 4px 8px rgba(112, 71, 235, 0.4);
+  box-shadow: 0 4px 8px rgba(112, 71, 235, 0.4);
+  outline: none;
 }
 
 #curs-next-btn:disabled {
@@ -70,43 +66,22 @@ body {
   box-shadow: none;
 }
 
+/* Pas 1: Selecció de franja horària */
 #step-1 {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* Botons franja horària */
 .time-slot-btn {
   display: block;
   width: 100%;
   padding: 12px 20px;
   margin: 10px 0;
-  background-color: #f8f7fa;
-  border: none;
-  border-radius: 15px;
-  font-family: "Quicksand", sans-serif;
-  font-weight: 600;
-  font-size: 1rem;
-  color: #19181a;
-  cursor: pointer;
-  text-align: center;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-  transition: 0.3s;
 }
 
-.time-slot-btn:hover {
-  background-color: rgb(112, 71, 235);
-  color: #fff;
-  box-shadow: 0px 4px 8px rgba(112, 71, 235, 0.4);
-}
-
-.time-slot-btn:focus {
-  outline: none;
-  background-color: rgb(112, 71, 235);
-  color: #fff;
-  box-shadow: 0px 4px 8px rgba(112, 71, 235, 0.4);
-}
-
+/* Select curs */
 #curs-select {
   width: 100%;
   padding: 10px;
@@ -114,35 +89,36 @@ body {
   background-color: #f8f7fa;
   border: 1px solid #efefef;
   border-radius: 15px;
-  font-family: "Quicksand", sans-serif;
   font-weight: 500;
   font-size: 1rem;
   color: #19181a;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   appearance: none;
   transition: 0.3s;
+  font-family: "Quicksand", sans-serif;
 }
 
 #curs-select:hover,
 #curs-select:focus {
   background-color: rgb(112, 71, 235);
   color: #fff;
-  box-shadow: 0px 4px 8px rgba(112, 71, 235, 0.4);
+  box-shadow: 0 4px 8px rgba(112, 71, 235, 0.4);
 }
 
+/* Card contenidor del calendari */
 .card {
   width: 100%;
   background-color: #FFFFFF;
   border-radius: 15px;
-  box-shadow: 0px 0px 10px #efefef;
+  box-shadow: 0 0 10px #efefef;
 }
 
+/* Toolbar calendari */
 .calendar-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  padding-bottom: 15px;
+  padding: 20px 20px 15px;
   border-bottom: 1px solid #efefef;
 }
 
@@ -154,7 +130,7 @@ body {
 
 .calendar-toolbar > [class$="month-btn"] {
   width: 50px;
-  aspect-ratio: 1;
+  aspect-ratio: 1 / 1;
   text-align: center;
   line-height: 50px;
   font-size: 18px;
@@ -162,8 +138,10 @@ body {
   background: #f8f7fa;
   border: none;
   border-radius: 15px;
+  cursor: pointer;
 }
 
+/* Setmana i dies calendari */
 .weekdays,
 .calendar-days {
   display: flex;
@@ -177,24 +155,62 @@ body {
 
 .calendar-days {
   padding-bottom: 12px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
 }
 
+/* Noms dels dies de la setmana */
 .weekday-name,
 [class$="-day"] {
   width: 40px;
   height: 40px;
-  color: #19181a;
   text-align: center;
   line-height: 40px;
-  font-weight: 500;
   font-size: 1rem;
+  font-weight: 500;
+  color: #19181a;
+  user-select: none;
 }
 
 .weekday-name {
-  color: #19181a;
   font-weight: 700;
 }
 
+/* Dies del calendari */
+.month-day {
+  padding: 10px;
+  border-radius: 5px;
+  cursor: default;
+  background-color: #f9f9f9; /* color base per dies no disponibles */
+  color: #666666;
+  user-select: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.month-day.available {
+  background-color: #512292; /* lila clar */
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.month-day.available:hover {
+  background-color: #8667e2; /* lila més fosc a hover */
+}
+
+
+.month-day.selected {
+  background-color: #004aad; /* blau fosc per el dia seleccionat */
+  color: white;
+}
+
+.padding-day {
+  background-color: #eeeeee; /* gris clar per dies fora del mes */
+  cursor: default;
+}
+
+/* Dia actual */
 .current-day {
   background-color: rgb(112, 71, 235);
   color: #f8f7fa;
@@ -202,4 +218,63 @@ body {
   font-weight: 700;
   transition: 0.5s;
   cursor: pointer;
+}
+
+/* PAS 4: Formulari reserva */
+#step-4 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+#step-4 h2 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #19181a;
+}
+
+#step-4 .summary {
+  width: 100%;
+  text-align: left;
+  font-size: 1rem;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #efefef;
+}
+
+#reservation-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+#reservation-form label {
+  font-weight: 600;
+  color: #19181a;
+  margin-bottom: 5px;
+}
+
+#reservation-form input,
+#reservation-form select {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  font-family: "Quicksand", sans-serif;
+  background-color: #f8f7fa;
+  transition: 0.3s;
+}
+
+#reservation-form input:focus,
+#reservation-form select:focus {
+  outline: none;
+  border-color: #7047eb;
+  box-shadow: 0 0 5px rgba(112, 71, 235, 0.4);
+}
+
+#reservation-form button {
+  align-self: center;
+  margin-top: 10px;
 }
