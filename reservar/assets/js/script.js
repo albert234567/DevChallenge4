@@ -122,15 +122,18 @@ function renderCalendar() {
     .then(availableDates => {
       console.log("Resposta API:", availableDates);
 
-      document.querySelectorAll(".month-day").forEach(dayElement => {
-        const day = parseInt(dayElement.textContent, 10);
-        if (isNaN(day)) return;
+    document.querySelectorAll(".month-day").forEach(dayElement => {
+      const day = parseInt(dayElement.textContent, 10);
+      if (isNaN(day)) return;
 
-        const currentDate = new Date(date.getFullYear(), date.getMonth(), day).toISOString().split("T")[0];
+      const year = date.getFullYear();
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const dayStr = day.toString().padStart(2, '0');
+      const currentDate = `${year}-${month}-${dayStr}`;
 
-        if (availableDates.includes(currentDate)) {
-          dayElement.classList.add("available");
-          dayElement.style.cursor = "pointer";
+      if (availableDates.includes(currentDate)) {
+        dayElement.classList.add("available");
+        dayElement.style.cursor = "pointer";
 
           dayElement.addEventListener("click", () => {
             // Neteja altres seleccions
@@ -184,33 +187,22 @@ function loadAvailableHours(courseId, date) {
 }
 
 
-
 // Gestionar enviament formulari Pas 4
 document.getElementById('reservation-form').addEventListener('submit', function(e) {
   e.preventDefault();
 
-  const course = document.getElementById('summary-course').textContent;
+  const courseId = window.selectedCourseId;
   const date = document.getElementById('summary-date').textContent;
-  const hour = document.getElementById('hour-select').value;
+  const hourStr = document.getElementById('hour-select').value;
   const name = document.getElementById('name').value;
   const email = document.getElementById('email').value;
   const phone = document.getElementById('phone').value;
 
-  const courseId = window.selectedCourseId;
-
-  // 👇 LOGS PER COMPROVAR ELS VALORS
-  console.log("courseId:", courseId);
-  console.log("course (nom):", course);
-  console.log("date:", date);
-  console.log("hour:", hour);
-  console.log("name:", name);
-  console.log("email:", email);
-  console.log("phone:", phone);
-
-  const data = {
+  // Dades per reserva (igual que abans)
+  const reservaData = {
     course_id: courseId,
-    date: date,
-    hour: hour,
+    date: date,   // string '2025-06-10'
+    hour: hourStr, // string '10:00'
     name: name,
     email: email,
     phone: phone
@@ -218,26 +210,53 @@ document.getElementById('reservation-form').addEventListener('submit', function(
 
   fetch('api/reserva.php', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(reservaData)
   })
   .then(res => res.json())
   .then(response => {
-    if (response.success) {
-      alert('Reserva confirmada! Rebràs un correu de confirmació.');
-    } else {
-      alert('Error en la reserva: ' + response.message);
-    }
-  })
-    .catch(async err => {
-    const responseText = await err.response?.text?.() || 'No response body';
-    console.error('Error enviant reserva:', err);
-    console.error('Resposta completa del servidor:', responseText);
-    alert('Error enviant la reserva. Revisa la consola per més informació.');
-    });
+    if (!response.success) throw new Error(response.message || 'Error en la reserva');
 
+    // Reserva OK: actualitzar UI...
+    document.getElementById('reservation-title').textContent = "Reserva completada";
+    document.getElementById('summary-hour').textContent = hourStr;
+    document.getElementById('summary-name').textContent = name;
+    document.getElementById('summary-email').textContent = email;
+    document.getElementById('summary-phone').textContent = phone;
+    document.getElementById('reservation-form').style.display = 'none';
+    document.querySelector('.summary-extra').style.display = 'block';
+
+    /*
+    // Ara eliminem la disponibilitat (necessitem obtenir hour_id)
+    return fetch(`api/get_hour_id.php?hora=${encodeURIComponent(hourStr)}`)
+      .then(res => res.json())
+      .then(data => {
+        if (!data.success) throw new Error("No s'ha trobat el hour_id");
+
+        // Ara fem la petició d'eliminar amb hour_id i data (NO date!)
+        return fetch('api/eliminar.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            course_id: courseId,
+            data: date,       // camp data, no date
+            hour_id: data.hour_id
+          })
+        });
+
+      })
+      .then(delRes => delRes.json())
+      .then(delResponse => {
+        if (!delResponse.success) {
+          console.warn("No s'ha pogut eliminar la disponibilitat:", delResponse.message);
+        }
+      });
+    */
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Error: " + err.message);
+  });
 });
 
 

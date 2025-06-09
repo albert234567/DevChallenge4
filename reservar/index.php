@@ -59,10 +59,17 @@
 
 <!-- Pas 4: Confirmació i formulari -->
 <div id="step-4" class="step" style="display: none;">
-  <h2>Confirma la teva reserva</h2>
-  <div class="summary">
+<h2 id="reservation-title">Confirma la teva reserva</h2>  <div class="summary">
     <p><strong>Curs:</strong> <span id="summary-course"></span></p>
-    <p><strong>Data:</strong> <span id="summary-date"></span></p><br>
+    <p><strong>Data:</strong> <span id="summary-date"></span></p>
+
+    <!-- Dades que apareixeran només després de confirmar -->
+    <div class="summary-extra" style="display: none;">
+      <p><strong>Hora:</strong> <span id="summary-hour"></span></p>
+      <p><strong>Nom:</strong> <span id="summary-name"></span></p>
+      <p><strong>Email:</strong> <span id="summary-email"></span></p>
+      <p><strong>Telèfon:</strong> <span id="summary-phone"></span></p>
+    </div>
   </div>
 
   <form id="reservation-form">
@@ -84,6 +91,6 @@
   </form>
 </div>
 
-    <script src="assets/js/script.js" defer></script>
+<script src="assets/js/script.js" defer></script>
 </body>
 </html>
