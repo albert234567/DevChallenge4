@@ -21,7 +21,7 @@ $data = trim($input['data']);
 $hour_id = intval($input['hour_id']);
 
 // Consulta SQL
-$sql = "DELETE FROM availabilities WHERE course_id = ? AND data = ? AND hour_id = ?";
+$sql = "DELETE FROM disponiblilitat WHERE course_id = ? AND data = ? AND hour_id = ?";
 $stmt = $conn->prepare($sql);
 
 if (!$stmt) {

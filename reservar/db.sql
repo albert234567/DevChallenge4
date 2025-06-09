@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla appointments
+-- Estructura de tabla para la tabla reserves
 --
 
-CREATE TABLE appointments (
+CREATE TABLE reserves (
   id bigint(20) UNSIGNED NOT NULL,
   course_id bigint(20) UNSIGNED NOT NULL,
   date date NOT NULL,
@@ -42,10 +42,10 @@ CREATE TABLE appointments (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla availabilities
+-- Estructura de tabla para la tabla disponiblilitat
 --
 
-CREATE TABLE availabilities (
+CREATE TABLE disponiblilitat (
   id bigint(20) UNSIGNED NOT NULL,
   course_id bigint(20) UNSIGNED NOT NULL,
   date date NOT NULL,
@@ -106,8 +106,8 @@ INSERT INTO migrations (id, migration, batch) VALUES
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
 (4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
 (5, '2024_12_02_165837_create_courses_table', 1),
-(6, '2024_12_02_165955_create_appointments_table', 1),
-(7, '2024_12_02_170022_create_availabilities_table', 1);
+(6, '2024_12_02_165955_create_reserves_table', 1),
+(7, '2024_12_02_170022_create_disponiblilitat_table', 1);
 
 -- --------------------------------------------------------
 
@@ -162,18 +162,18 @@ CREATE TABLE users (
 --
 
 --
--- Indices de la tabla appointments
+-- Indices de la tabla reserves
 --
-ALTER TABLE appointments
+ALTER TABLE reserves
   ADD PRIMARY KEY (id),
-  ADD KEY appointments_course_id_foreign (course_id);
+  ADD KEY reserves_course_id_foreign (course_id);
 
 --
--- Indices de la tabla availabilities
+-- Indices de la tabla disponiblilitat
 --
-ALTER TABLE availabilities
+ALTER TABLE disponiblilitat
   ADD PRIMARY KEY (id),
-  ADD KEY availabilities_course_id_foreign (course_id);
+  ADD KEY disponiblilitat_course_id_foreign (course_id);
 
 --
 -- Indices de la tabla courses
@@ -220,15 +220,15 @@ ALTER TABLE users
 --
 
 --
--- AUTO_INCREMENT de la tabla appointments
+-- AUTO_INCREMENT de la tabla reserves
 --
-ALTER TABLE appointments
+ALTER TABLE reserves
   MODIFY id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla availabilities
+-- AUTO_INCREMENT de la tabla disponiblilitat
 --
-ALTER TABLE availabilities
+ALTER TABLE disponiblilitat
   MODIFY id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -266,16 +266,16 @@ ALTER TABLE users
 --
 
 --
--- Filtros para la tabla appointments
+-- Filtros para la tabla reserves
 --
-ALTER TABLE appointments
-  ADD CONSTRAINT appointments_course_id_foreign FOREIGN KEY (course_id) REFERENCES courses (id) ON DELETE CASCADE;
+ALTER TABLE reserves
+  ADD CONSTRAINT reserves_course_id_foreign FOREIGN KEY (course_id) REFERENCES courses (id) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla availabilities
+-- Filtros para la tabla disponiblilitat
 --
-ALTER TABLE availabilities
-  ADD CONSTRAINT availabilities_course_id_foreign FOREIGN KEY (course_id) REFERENCES courses (id) ON DELETE CASCADE;
+ALTER TABLE disponiblilitat
+  ADD CONSTRAINT disponiblilitat_course_id_foreign FOREIGN KEY (course_id) REFERENCES courses (id) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

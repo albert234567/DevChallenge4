@@ -14,7 +14,7 @@ if (!$course_id) {
 }
 
 try {
-    $stmt = $pdo->prepare("SELECT data FROM availabilities WHERE course_id = ?");
+    $stmt = $pdo->prepare("SELECT data FROM disponiblilitat WHERE course_id = ?");
     $stmt->execute([$course_id]);
     $disponibilitats = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

@@ -25,7 +25,7 @@ if ($mysqli->connect_errno) {
     exit;
 }
 
-$stmt = $mysqli->prepare("INSERT INTO appointments (course_id, date, time, name, email, phone) VALUES (?, ?, ?, ?, ?, ?)");
+$stmt = $mysqli->prepare("INSERT INTO reserves (course_id, date, time, name, email, phone) VALUES (?, ?, ?, ?, ?, ?)");
 if (!$stmt) {
     echo json_encode(['success' => false, 'message' => 'Error en preparar consulta']);
     exit;

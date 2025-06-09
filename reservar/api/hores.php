@@ -20,7 +20,7 @@ if ($conn->connect_error) {
 
 $sql = "
     SELECT h.hora
-    FROM availabilities a
+    FROM disponiblilitat a
     JOIN hores h ON a.hour_id = h.id
     WHERE a.course_id = ? AND a.data = ?
     ORDER BY h.hora ASC
