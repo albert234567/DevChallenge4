@@ -8,6 +8,32 @@ document.addEventListener("DOMContentLoaded", () => {
     let date = new Date();
     today.setHours(0, 0, 0, 0);
 
+document.querySelectorAll('.back-btn').forEach(button => {
+  button.addEventListener('click', function () {
+    const currentStep = this.closest('.step');
+    const prevStepId = this.getAttribute('data-prev-step');
+    const prevStep = document.getElementById(prevStepId);
+
+    if (currentStep && prevStep) {
+      currentStep.style.display = 'none';
+      prevStep.style.display = 'block';
+
+      // Detectar el número del pas anterior
+      const stepNumber = parseInt(prevStepId.split('-')[1]);
+      updateProgressBar(stepNumber);
+    }
+  });
+});
+
+
+  //barra de progres
+  function updateProgressBar(stepNumber) {
+  const totalSteps = 5; // nombre total de passos
+  const progress = ((stepNumber - 1) / (totalSteps - 1)) * 100;
+  document.getElementById('progress-bar').style.width = `${progress}%`;
+}
+
+
     // Inicialitzar text mes actual
     currentMonth.textContent = date.toLocaleDateString("en-US", { month: "long", year: "numeric" });
 
@@ -41,6 +67,8 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("step-1").style.display = "none";
             loadCursos(franjaHoraria);
             document.getElementById("step-2").style.display = "block";
+            updateProgressBar(2);
+
         });
     });
 
@@ -81,6 +109,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!selectedCourse) return alert("Selecciona un curs");
         document.getElementById("step-2").style.display = "none";
         document.getElementById("step-3").style.display = "block";
+        updateProgressBar(3);
+
 
         // Reset seleccions quan entres al calendari
         selectedDate = null;
@@ -145,6 +175,10 @@ function renderCalendar() {
             // Mostra pas 4, amaga pas 3
             document.getElementById("step-3").style.display = "none";
             document.getElementById("step-4").style.display = "block";
+
+            // 🔧 ACTUALITZAR BARRA DE PROGRÉS AL PAS 4
+            updateProgressBar(4);
+
 
             // Actualitza el resum amb curs i data
             document.getElementById("summary-course").textContent = cursSelect.options[cursSelect.selectedIndex].text;
@@ -225,6 +259,7 @@ document.getElementById('reservation-form').addEventListener('submit', function(
     document.getElementById('summary-phone').textContent = phone;
     document.getElementById('reservation-form').style.display = 'none';
     document.querySelector('.summary-extra').style.display = 'block';
+    updateProgressBar(5);
 
     /*
     // Ara eliminem la disponibilitat (necessitem obtenir hour_id)

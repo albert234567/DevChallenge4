@@ -8,7 +8,13 @@
     <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
+
     <div class="container">
+
+    <div class="progress-bar-container">
+    <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
         <!-- Pas 1: Seleccionar Matí o Tarda -->
         <div id="step-1" class="step">
             <h2>Selecciona la franja horària</h2>
@@ -22,6 +28,7 @@
             <select id="curs-select">
                 <option value="" disabled selected>Escull un curs</option>
             </select>
+            <button class="back-btn" data-prev-step="step-1">⬅️</button>
             <button id="curs-next-btn" disabled>Continuar</button>
         </div>
 
@@ -51,6 +58,7 @@
         <div class="hours-container"></div>
 
         <div class="goto-buttons">
+            <button class="back-btn" data-prev-step="step-2">⬅️</button>
             <button type="button" class="btn today">Today</button>
             <button type="button" id="confirm-reservation" class="btn" disabled style="display: none;"></button>
         </div>
@@ -87,7 +95,10 @@
     <label for="phone">Telèfon:</label>
     <input type="tel" id="phone" name="phone" required>
 
-    <button type="submit" class="btn">Confirmar reserva</button>
+    <div class="goto-buttons">
+        <button class="back-btn" data-prev-step="step-3">⬅️</button>
+        <button type="submit" class="btn">Confirmar reserva</button>
+    </div>
   </form>
 </div>
 
